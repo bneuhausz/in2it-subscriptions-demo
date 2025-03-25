@@ -10,6 +10,14 @@ export const routes: Routes = [
     loadComponent: () => import('./do-this-one/do-this-one.component'),
   },
   {
+    path: 'do-this-two',
+    loadComponent: () => import('./do-this-two/do-this-two.component'),
+  },
+  {
+    path: 'do-this-three',
+    loadComponent: () => import('./do-this-three/do-this-three.component'),
+  },
+  {
     path: '',
     redirectTo: 'do-not-do-this',
     pathMatch: 'full',

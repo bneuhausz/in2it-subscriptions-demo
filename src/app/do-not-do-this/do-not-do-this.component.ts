@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { SubService } from '../shared/sub.service';
 
 @Component({
   selector: 'app-do-not-do-this',
@@ -26,9 +27,11 @@ export default class DoNotDoThisComponent {
     control: new FormControl('')
   });
   subCounter = signal(0);
+  readonly subService = inject(SubService);
 
   constructor() {
     this.form.valueChanges.subscribe(() => this.addSub());
+    this.subService.getDataStream().subscribe((val) => console.log('Received value in do-not-do-this:', val));
   }
 
   addSub() {
