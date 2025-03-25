@@ -33,7 +33,9 @@ export default class DoThisOneComponent implements OnDestroy {
     this.#controlSub = this.form.controls.control.valueChanges.subscribe((val) => console.log(val));
 
     this.#serviceSub = this.subService.getDataStream()
-      .subscribe((val) => console.log('Received value in do-this-one:', val));
+      .subscribe((val) => {
+        if (this.subService.shouldLog()) console.log('Received value in do-this-one:', val)
+      });
   }
 
   ngOnDestroy() {

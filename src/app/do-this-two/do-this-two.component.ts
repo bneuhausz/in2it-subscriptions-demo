@@ -42,7 +42,9 @@ export default class DoThisTwoComponent implements OnDestroy {
       .pipe(
         takeUntil(this.#destroy$)
       )
-      .subscribe((val) => console.log('Received value in do-this-two:', val));
+      .subscribe((val) => {
+        if (this.subService.shouldLog()) console.log('Received value in do-this-two:', val)
+      });
   }
 
   ngOnDestroy() {

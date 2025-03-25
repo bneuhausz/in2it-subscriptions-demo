@@ -31,7 +31,10 @@ export default class DoNotDoThisComponent {
 
   constructor() {
     this.form.valueChanges.subscribe(() => this.addSub());
-    this.subService.getDataStream().subscribe((val) => console.log('Received value in do-not-do-this:', val));
+    this.subService.getDataStream()
+      .subscribe((val) => {
+        if (this.subService.shouldLog()) console.log('Received value in do-not-do-this:', val)
+      });
   }
 
   addSub() {

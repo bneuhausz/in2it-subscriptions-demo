@@ -48,7 +48,9 @@ export default class DoThisThreeComponent {
         .pipe(
           takeUntilDestroyed(this.#destroyRef)
         )
-        .subscribe((val) => console.log('Received value in do-this-three:', val));
+        .subscribe((val) => {
+          if (this.subService.shouldLog()) console.log('Received value in do-this-three:', val)
+        });
     }
   }
 }
