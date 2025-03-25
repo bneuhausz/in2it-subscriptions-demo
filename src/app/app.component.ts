@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink],
   template: `
-    <h1>Welcome to {{title}}!</h1>
+    <nav>
+      <a routerLink="/do-not-do-this">Do Not Do This</a>
+      <a routerLink="/do-this-one">Do This One</a>
+    </nav>
 
     <router-outlet />
   `,
   styles: [],
 })
 export class AppComponent {
-  title = 'in2it-subscriptions-demo';
 }
