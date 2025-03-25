@@ -18,12 +18,16 @@ export const routes: Routes = [
     loadComponent: () => import('./do-this-three/do-this-three.component'),
   },
   {
+    path: 'home',
+    loadComponent: () => import('./home/home.component'),
+  },
+  {
     path: '',
-    redirectTo: 'do-not-do-this',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {
     path: '**',
-    redirectTo: 'do-not-do-this',
+    redirectTo: 'home',
   }
 ];
