@@ -24,6 +24,10 @@ export default class DoThisOneComponent implements OnDestroy {
   });
   readonly subService = inject(SubService);
 
+  /**
+   * In this example, the subscriptions are created in the constructor and stored in private properties.
+   * Meaning, there is always a single subscription for each stream, and they can be unsubscribed when the component is destroyed.
+   */
   readonly #formSub!: Subscription;
   readonly #controlSub!: Subscription;
   readonly #serviceSub!: Subscription;
@@ -38,6 +42,10 @@ export default class DoThisOneComponent implements OnDestroy {
       });
   }
 
+  /**
+   * Unsubscribe from all subscriptions when the component is destroyed.
+   * There are better ways to handle this, some of them are shown in the next examples, but this is at least a working solution.
+   */
   ngOnDestroy() {
     this.#formSub.unsubscribe();
     this.#controlSub.unsubscribe();

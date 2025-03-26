@@ -22,8 +22,14 @@ export default class DoThisTwoComponent implements OnDestroy {
   readonly form = new FormGroup({
     control: new FormControl('')
   });
-  readonly #destroy$ = new Subject<void>();
   readonly subService = inject(SubService);
+
+  /**
+   * In this example, there are no private properties to store the subscriptions, only a single Subject,
+   * which emits when the component is destroyed.
+   * The observable streams are unsubscribed using the takeUntil operator, which reacts to this Subject emitting.
+   */
+  readonly #destroy$ = new Subject<void>();
 
   constructor() {
     this.form.valueChanges
@@ -47,6 +53,9 @@ export default class DoThisTwoComponent implements OnDestroy {
       });
   }
 
+  /**
+   * In this case, when ngOnDestroy runs, the Subject emits, causing the takeUntil operator to unsubscribe from all streams, then completes.
+   */
   ngOnDestroy() {
     this.#destroy$.next();
     this.#destroy$.complete();
