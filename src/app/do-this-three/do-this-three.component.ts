@@ -66,7 +66,7 @@ export default class DoThisThreeComponent {
      * It is also created outside of the injection context, so it needs the DestroyRef to work properly.
      */
     if(!this.#subOutOfInjectionScope) {
-      this.#subOutOfInjectionScope = this.subService.getDataStream()
+      this.#subOutOfInjectionScope = this.subService.dataStream$
         .pipe(
           takeUntilDestroyed(this.#destroyRef)
         )

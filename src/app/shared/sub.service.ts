@@ -1,5 +1,5 @@
 import { Injectable, signal } from "@angular/core";
-import { BehaviorSubject, interval } from "rxjs";
+import { BehaviorSubject, interval, tap } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,27 @@ export class SubService {
   readonly #dataStream = new BehaviorSubject<number>(0);
 
   /**
+   * This signal is used to keep track of how many subscriptions are currently active.
+   */
+  readonly activeSubscriptions = signal(0);
+
+  /**
+   * This turns #dataStream into an observable, so it can be subscribed to in the components.
+   * It also increments the activeSubscriptions signal when a new subscription is created and decrements it when a subscription is destroyed.
+   */
+  dataStream$ = this.#dataStream.asObservable().pipe(
+    tap({
+      next: () => {},
+      subscribe: () => {
+        this.activeSubscriptions.update(value => value + 1);
+      },
+      unsubscribe: () => {
+        this.activeSubscriptions.update(value => Math.max(0, value - 1));
+      }
+    })
+  );
+
+  /**
    * This is just here for demo purposes, so different concepts can be shown without the subscription spamming the console.
    */
   shouldLog = signal(false);
@@ -26,9 +47,5 @@ export class SubService {
       if (this.shouldLog()) console.log('Emitting value:', value);
       this.#dataStream.next(value);
     });
-  }
-
-  getDataStream() {
-    return this.#dataStream.asObservable();
   }
 }

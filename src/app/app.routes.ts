@@ -18,6 +18,10 @@ export const routes: Routes = [
     loadComponent: () => import('./do-this-three/do-this-three.component'),
   },
   {
+    path: 'template-only',
+    loadComponent: () => import('./template-only/template-only.component'),
+  },
+  {
     path: 'home',
     loadComponent: () => import('./home/home.component'),
   },

@@ -44,7 +44,7 @@ export default class DoThisTwoComponent implements OnDestroy {
       )
       .subscribe((val) => console.log(val));
 
-    this.subService.getDataStream()
+    this.subService.dataStream$
       .pipe(
         takeUntil(this.#destroy$)
       )
